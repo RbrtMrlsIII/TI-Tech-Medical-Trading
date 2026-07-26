@@ -77,17 +77,40 @@
                 <p id="selected-service-display" style="font-size: 14px; font-weight: 700; color: #2563eb; margin: 4px 0 0 0;"></p>
             </div>
             
-            <div class="calendar-box">
-                [ Free Calendly / TidyCal Embedded Booking Calendar Widget Will Load Here ]
+            <!-- Reliable mobile iframe container pointing to your live clinical-booking page -->
+            <div style="width: 100%; height: 600px; margin: 16px 0; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; background-color: #ffffff;">
+                <iframe 
+                    src="https://tidycal.com" 
+                    width="100%" 
+                    height="100%" 
+                    frameborder="0" 
+                    style="border: 0; width: 100%; height: 100%;">
+                </iframe>
             </div>
-            
-            <button class="confirm-btn">
-                Confirm Intake Schedule
-            </button>
         </section>
 
     </main>
 
-    <script src="script.js"></script>
+    <script>
+      function selectService(serviceName) {
+            // Locate elements inside the HTML document
+            const bookingSection = document.getElementById('booking-section');
+            const serviceDisplay = document.getElementById('selected-service-display');
+            
+            // Inject the selected treatment text into the target display field
+            serviceDisplay.innerText = "Selected Category: " + serviceName;
+            
+            // Switch CSS layout rules to display the hidden intake calendar container smoothly
+            bookingSection.classList.remove('hidden-element');
+            bookingSection.classList.add('visible-element');
+            
+            // Auto-scroll screen directly to the selection block for easy finger access
+            bookingSection.scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'nearest' 
+            });
+        }
+        
+    </script>
 </body>
 </html>
