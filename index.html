@@ -76,24 +76,19 @@
                 <p id="selected-service-display" style="font-size: 14px; font-weight: 700; color: #2563eb; margin: 4px 0 0 0;"></p>
             </div>
 
-            <!-- Custom Formspree Form Error Message -->
-<div id="form-error-msg" style="display: none; padding: 12px; border-radius: 8px; margin-bottom: 16px; font-size: 14px; background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb;">
-Something went wrong. Please check your form details and try again.
-            </div>
-
-<form action="https://formspree.io/f/mvzedzzp" method="POST" enctype="multipart/form-data" id="intake-form" style="display: flex; flex-direction: column; gap: 12px; background-color: #ffffff; padding: 16px; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-
+            <!-- Reliable Standard Submission Mode -->
+            <form action="https://formspree.io" method="POST" enctype="multipart/form-data" id="intake-form" style="display: flex; flex-direction: column; gap: 12px; background-color: #ffffff; padding: 16px; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
                 
-                <!-- Hidden input to track the service selected in Step 1 -->
-<input type="hidden" name="Selected Service" id="hidden-service-input">
+                <!-- Passes category text context cleanly to your inbox email -->
+                <input type="hidden" name="Selected Service" id="hidden-service-input">
 
-<div>
-<label style="display: block; font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 4px;">Patient Full Name</label>
-<input type="text" name="Patient Name" required style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; box-sizing: border-box;">
-</div>
+                <div>
+                    <label style="display: block; font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 4px;">Patient Full Name</label>
+                    <input type="text" name="Patient Name" required style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; box-sizing: border-box;">
+                </div>
 
-<div>
-<label style="display: block; font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 4px;">Contact Phone Number</label>
+                <div>
+                    <label style="display: block; font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 4px;">Contact Phone Number</label>
                     <input type="tel" name="Patient Phone" required style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; box-sizing: border-box;">
                 </div>
 
@@ -104,18 +99,16 @@ Something went wrong. Please check your form details and try again.
                     <p style="font-size: 11px; color: #94a3b8; margin: 4px 0 0 0;">Upload PDF, JPG, or PNG images.</p>
                 </div>
 
-                <button type="submit" id="submit-btn" class="confirm-btn" style="background-color: #2563eb; margin-top: 4px;">
+                <button type="submit" class="confirm-btn" style="background-color: #2563eb; margin-top: 4px;">
                     Verify Info & Open Booking Calendar
                 </button>
             </form>
         </section>
 
-        <!-- Step 3: Dynamic Booking Calendar (Revealed instantly on submission) -->
+        <!-- Step 3: Dynamic Booking Calendar -->
         <section id="booking-section" class="hidden-element" style="margin-top: 24px;">
-            <div style="border-bottom: 1px solid #d4edda; padding-bottom: 8px; margin-bottom: 16px;">
-                <div style="padding: 12px; border-radius: 8px; font-size: 14px; background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; font-weight: 600;">
-                    ✓ Patient intake saved! Final Step: Choose your appointment date below.
-                </div>
+            <div style="border-bottom: 1px solid #f1f5f9; padding-bottom: 8px; margin-bottom: 16px;">
+                <h3>Step 3: Pick Your Appointment Time</h3>
             </div>
             
             <!-- TidyCal Embedded Calendar -->
@@ -144,11 +137,9 @@ Something went wrong. Please check your form details and try again.
             serviceDisplay.innerText = "Selected Category: " + serviceName;
             hiddenServiceInput.value = serviceName;
             
-            // Keep calendar locked out if they change categories mid-fill
             bookingSection.classList.remove('visible-element');
             bookingSection.classList.add('hidden-element');
             
-            // Dynamic file upload input management based on category type
             if (serviceName.includes('Certificate') || serviceName.includes('Document')) {
                 uploadContainer.style.display = 'block';
                 fileInput.required = true;
@@ -160,40 +151,11 @@ Something went wrong. Please check your form details and try again.
             
             intakeSection.classList.remove('hidden-element');
             intakeSection.classList.add('visible-element');
-            
             intakeSection.scrollIntoView({ 
                 behavior: 'smooth', 
                 block: 'nearest' 
             });
         }
-
-        // Clean client-side submission engine that bypasses Formspree paywall redirect restrictions
-        document.getElementById('intake-form').addEventListener('submit', function(event) {
-            event.preventDefault(); 
-            
-            const form = event.target;
-            const submitButton = document.getElementById('submit-btn');
-            const errorDisplay = document.getElementById('form-error-msg');
-            const bookingSection = document.getElementById('booking-section');
-            
-            submitButton.disabled = true;
-            submitButton.innerText = "Saving Intake Data...";
-            errorDisplay.style.display = 'none';
-            
-            // Native boundary form data transfer - handles mobile image attachments smoothly
-            fetch("https://formspree.io", {
-                method: "POST",
-                body: new FormData(form),
-                headers: { 'Accept': 'application/json' }
-            })
-            .then(response => {
-                if (response.ok) {
-                    // Success: Hide form panel and immediately unlock the live TidyCal frame
-                    document.getElementById('intake-section').style.display = 'none';
-                    bookingSection.classList.remove('hidden-element');
-                    bookingSection.classList.add('visible-element');
-                    bookingSection.scrollIntoView({ behavior: 'smooth', block: 'start' });} else {throw new Error();}}).catch(() => {submitButton.disabled = false;submitButton.innerText = "Verify Info & Open Booking Calendar";errorDisplay.style.display = 'block';});});
-
     </script>
 </body>
 </html>
