@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Clinic Intake & Scheduling</title>
+    <!-- Linking your clean native styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Mobile Header -->
+    <header>
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 24px;">🏥</span>
+            <h1>Metro Care Clinic</h1>
+        </div>
+        <span class="badge">Skip the Line</span>
+    </header>
+
+    <!-- Main Container -->
+    <main>
+        
+        <!-- Hero Section -->
+        <section class="hero-card">
+            <h2>Welcome to Fast-Track Care</h2>
+            <p>Avoid long verbal check-ins. Select your required service below to instantly schedule your treatment or consultation.</p>
+        </section>
+
+        <!-- Treatment Selection Menu -->
+        <section>
+            <h3>Step 1: Select Required Treatment</h3>
+            
+            <div class="menu-container">
+                <!-- Service 1 -->
+                <button onclick="selectService('General Consultation')" class="service-btn">
+                    <div class="btn-content">
+                        <span class="icon-box" style="background-color: #eff6ff;">🩺</span>
+                        <div>
+                            <p class="btn-title">General Consultation</p>
+                            <p class="btn-desc">Checkups, prescriptions, & fever</p>
+                        </div>
+                    </div>
+                    <span class="arrow-icon">→</span>
+                </button>
+
+                <!-- Service 2 -->
+                <button onclick="selectService('Dental / Dental Cleaning')" class="service-btn">
+                    <div class="btn-content">
+                        <span class="icon-box" style="background-color: #ecfdf5;">🦷</span>
+                        <div>
+                            <p class="btn-title">Dental Care</p>
+                            <p class="btn-desc">Routine cleaning, fillings, or pain</p>
+                        </div>
+                    </div>
+                    <span class="arrow-icon">→</span>
+                </button>
+
+                <!-- Service 3 -->
+                <button onclick="selectService('Medical Certificate')" class="service-btn">
+                    <div class="btn-content">
+                        <span class="icon-box" style="background-color: #faf5ff;">📄</span>
+                        <div>
+                            <p class="btn-title">Document Requests</p>
+                            <p class="btn-desc">Medical certificates, clearance, or forms</p>
+                        </div>
+                    </div>
+                    <span class="arrow-icon">→</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Dynamic Booking Section -->
+        <section id="booking-section" class="hidden-element">
+            <div style="border-bottom: 1px solid #f1f5f9; padding-bottom: 8px;">
+                <h3>Step 2: Book Your Time Slot</h3>
+                <p id="selected-service-display" style="font-size: 14px; font-weight: 700; color: #2563eb; margin: 4px 0 0 0;"></p>
+            </div>
+            
+            <div class="calendar-box">
+                [ Free Calendly / TidyCal Embedded Booking Calendar Widget Will Load Here ]
+            </div>
+            
+            <button class="confirm-btn">
+                Confirm Intake Schedule
+            </button>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

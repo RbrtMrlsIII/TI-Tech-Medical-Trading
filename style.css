@@ -1,0 +1,183 @@
+/* Custom Native Mobile Styling - No Internet Required */
+body {
+    background-color: #f8fafc;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #1e293b;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 12px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+header h1 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.badge {
+    background-color: #d1fae5;
+    color: #065f46;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 9999px;
+}
+
+main {
+    max-w: 450px;
+    margin: 0 auto;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.hero-card {
+    text-align: center;
+    background: linear-gradient(135deg, #2563eb, #4f46e5);
+    padding: 24px;
+    border-radius: 16px;
+    color: #ffffff;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.hero-card h2 {
+    font-size: 22px;
+    font-weight: 900;
+    margin: 0 0 8px 0;
+}
+
+.hero-card p {
+    font-size: 14px;
+    color: #dbeafe;
+    margin: 0;
+    line-height: 1.4;
+}
+
+h3 {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #94a3b8;
+    margin-bottom: 12px;
+}
+
+.menu-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.service-btn {
+    width: 100%;
+    text-align: left;
+    background-color: #ffffff;
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    transition: all 0.2s ease;
+}
+
+.service-btn:active {
+    transform: scale(0.97);
+    background-color: #f1f5f9;
+}
+
+.btn-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.icon-box {
+    font-size: 20px;
+    padding: 8px;
+    border-radius: 8px;
+    background-color: #f1f5f9;
+}
+
+.btn-title {
+    font-weight: 600;
+    font-size: 16px;
+    margin: 0;
+    color: #0f172a;
+}
+
+.btn-desc {
+    font-size: 12px;
+    color: #64748b;
+    margin: 4px 0 0 0;
+}
+
+.arrow-icon {
+    font-weight: bold;
+    color: #94a3b8;
+    font-size: 18px;
+}
+
+.hidden-element {
+    display: none !important;
+}
+
+.visible-element {
+    display: block !important;
+    animation: fadeInUp 0.4s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+#booking-section {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.calendar-box {
+    background-color: #f8fafc;
+    border: 2px dashed #cbd5e1;
+    border-radius: 8px;
+    padding: 24px;
+    text-align: center;
+    font-size: 12px;
+    color: #64748b;
+    margin: 16px 0;
+}
+
+.confirm-btn {
+    width: 100%;
+    background-color: #0f172a;
+    color: #ffffff;
+    font-weight: 700;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.confirm-btn:active {
+    background-color: #1e293b;
+    transform: scale(0.99);
+}
