@@ -1,161 +1,340 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quick Clinic Intake & Scheduling</title>
-    <link rel="stylesheet" href="style.css">
+    <title>HomeFinder - Find Your Perfect Space</title>
+
+    <!-- CSS load order = build order: tokens → reset → components
+         (in the order they appear on the page) → responsive last -->
+         
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/hero.css">
+    <link rel="stylesheet" href="css/search.css">
+    <link rel="stylesheet" href="css/property.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
 
-    <!-- Mobile Header -->
-    <header>
-        <div style="display: flex; align-items: center; gap: 8px;">
-            <span style="font-size: 24px;">🏥</span>
-            <h1>Metro Care Clinic</h1>
+    <!-- ============================ -->
+    <!--        NAVIGATION            -->
+    <!-- =============================-->
+    
+<header class="header">
+    <nav class="navbar">
+
+        <a href="#home" class="logo">
+            <img src="assets/images/logo.png" alt="HomeFinder logo">
+            <span>HomeFinder</span>
+        </a>
+
+        <!-- horizontally scrollable on narrow screens --
+             swipe sideways to reach Login/Register -->
+        <div class="nav-scroll">
+            <ul class="nav-links">
+                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#properties">Properties</a></li>
+                <li><a href="#map">Map</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <button class="login-btn" onclick="location.href='login.html'">Login</button>
+                <button class="register-btn" onclick="location.href='register.html'">Register</button>
+            </div>
         </div>
-        <span class="badge">Skip the Line</span>
-    </header>
 
-    <!-- Main Container -->
+        <!-- universal search: properties, users, pages, map --
+             no longer gates login -->
+        <button class="search-toggle" aria-label="Open search" id="universal-search-btn">
+            <i class="bx bx-search"></i>
+        </button>
+
+    </nav>
+
+    <!-- shown on mobile/tablet as a shortcut alongside the
+         scrollable Login/Register -->
+    <a href="register.html" class="floating-register" aria-label="Get started with HomeFinder">
+        Get Started
+        <span class="arrow"><i class='bx bx-chevron-right'></i></span>
+    </a>
+</header>
+
+    <!-- ============================ -->
+    <!-- EVERYTHING BELOW THE NAV     -->
+    <!-- LIVES INSIDE THE MAIN        -->
+    <!-- =============================-->
+    
     <main>
-        
-        <!-- Hero Section -->
-        <section class="hero-card">
-            <h2>Welcome to Fast-Track Care</h2>
-            <p>Avoid long verbal check-ins. Select your required service below to instantly schedule your treatment or consultation.</p>
-        </section>
 
-        <!-- Treatment Selection Menu -->
-        <section>
-            <h3>Step 1: Select Required Treatment</h3>
-            
-            <div class="menu-container">
-                <!-- Service 1 -->
-                <button onclick="selectService('General Consultation')" class="service-btn">
-                    <div class="btn-content">
-                        <span class="icon-box" style="background-color: #eff6ff;">🩺</span>
+    <!-- ============================ -->
+    <!--         HERO SECTION         -->
+    <!-- =============================-->
+
+        <section class="hero" id="home">
+
+            <div class="hero-overlay"></div>
+
+            <div class="hero-content">
+
+                <h1>
+                  <div class="glowing-brand">
+                    <span>H</span><span>o</span><span>m</span><span>e</span><span>F</span><span>i</span><span>n</span><span>d</span><span>e</span><span>r</span></div>
+                    find a place you can
+                    <br>
+                    <span id="typing-text"></span>
+                </h1>
+
+                <p class="hero-description">
+                    Find affordable and trusted rental spaces near you,
+                    with locations you can explore before you decide.
+                </p>
+
+                <p class="hero-subtext">
+                    Apartments • Houses • Bed Spaces • Commercial Spaces
+                </p>
+
+    <!-- ============================ -->
+    <!-- each .trust-item gets the    -->
+    <!--    .show reveal animation    -->
+    <!-- =============================-->
+    
+                <div class="hero-trust">
+
+                    <div class="trust-item">
+                        <div class="trust-icon">
+                            <i class='bx bx-check-shield'></i>
+                        </div>
                         <div>
-                            <p class="btn-title">General Consultation</p>
-                            <p class="btn-desc">Checkups, prescriptions, & fever</p>
+                            <strong>Verified Listings</strong>
+                            <span>Trusted properties</span>
                         </div>
                     </div>
-                    <span class="arrow-icon">→</span>
-                </button>
 
-                <!-- Service 2 -->
-                <button onclick="selectService('Dental / Dental Cleaning')" class="service-btn">
-                    <div class="btn-content">
-                        <span class="icon-box" style="background-color: #ecfdf5;">🦷</span>
+                    <div class="trust-item">
+                        <div class="trust-icon">
+                            <i class='bx bx-map'></i>
+                        </div>
                         <div>
-                            <p class="btn-title">Dental Care</p>
-                            <p class="btn-desc">Routine cleaning, fillings, or pain</p>
+                            <strong>Map Search</strong>
+                            <span>Find nearby places</span>
                         </div>
                     </div>
-                    <span class="arrow-icon">→</span>
-                </button>
 
-                <!-- Service 3 -->
-                <button onclick="selectService('Medical Certificate')" class="service-btn">
-                    <div class="btn-content">
-                        <span class="icon-box" style="background-color: #faf5ff;">📄</span>
+                    <div class="trust-item">
+                        <div class="trust-icon">
+                            <i class='bx bx-home-heart'></i>
+                        </div>
                         <div>
-                            <p class="btn-title">Document Requests</p>
-                            <p class="btn-desc">Medical certificates, clearance, or forms</p>
+                            <strong>Many Choices</strong>
+                            <span>Homes & businesses</span>
                         </div>
                     </div>
-                    <span class="arrow-icon">→</span>
-                </button>
+
+                </div>
+
+                <div class="hero-buttons">
+                    <button class="primary-btn">Explore Properties</button>
+                    <button class="secondary-btn">Post a Property</button>
+                </div>
+
             </div>
         </section>
 
-        <!-- Step 2: Intake Information (Appears after choosing service) -->
-        <section id="intake-section" class="hidden-element">
-            <div style="border-bottom: 1px solid #f1f5f9; padding-bottom: 8px; margin-bottom: 16px;">
-                <h3>Step 2: Complete Intake Details</h3>
-                <p id="selected-service-display" style="font-size: 14px; font-weight: 700; color: #2563eb; margin: 4px 0 0 0;"></p>
+    <!-- ============================ -->
+    <!--         MAP SECTION          -->
+    <!-- =============================-->
+    
+<section class="map-section" id="map">
+    <h2>Explore Properties Near You</h2>
+    <p class="map-sub">Set your radius and filters to find listings around a location.</p>
+
+    <div class="map-layout">
+
+        <!-- FILTER PANEL -->
+        <div class="map-filters">
+
+            <div class="field-group">
+                <label for="map-location">Location</label>
+                <div class="input-wrap">
+                    <i class='bx bx-map-pin'></i>
+                    <input type="text" id="map-location" class="no-icon-override" placeholder="Search a city or address">
+                </div>
             </div>
 
-            <!-- Reliable Standard Submission Mode -->
-            <form action="https://formspree.io" method="POST" enctype="multipart/form-data" id="intake-form" style="display: flex; flex-direction: column; gap: 12px; background-color: #ffffff; padding: 16px; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
-                
-                <!-- Passes category text context cleanly to your inbox email -->
-                <input type="hidden" name="Selected Service" id="hidden-service-input">
-
-                <div>
-                    <label style="display: block; font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 4px;">Patient Full Name</label>
-                    <input type="text" name="Patient Name" required style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; box-sizing: border-box;">
-                </div>
-
-                <div>
-                    <label style="display: block; font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 4px;">Contact Phone Number</label>
-                    <input type="tel" name="Patient Phone" required style="width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 14px; box-sizing: border-box;">
-                </div>
-
-                <!-- Document Upload Area -->
-                <div id="upload-container">
-                    <label style="display: block; font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 4px;">📄 Upload Medical Documents</label>
-                    <input type="file" name="Medical Document" id="file-input" style="width: 100%; font-size: 14px; color: #64748b; padding: 8px; border: 1px dashed #cbd5e1; border-radius: 8px; background-color: #f8fafc; box-sizing: border-box;">
-                    <p style="font-size: 11px; color: #94a3b8; margin: 4px 0 0 0;">Upload PDF, JPG, or PNG images.</p>
-                </div>
-
-                <button type="submit" class="confirm-btn" style="background-color: #2563eb; margin-top: 4px;">
-                    Verify Info & Open Booking Calendar
-                </button>
-            </form>
-        </section>
-
-        <!-- Step 3: Dynamic Booking Calendar -->
-        <section id="booking-section" class="hidden-element" style="margin-top: 24px;">
-            <div style="border-bottom: 1px solid #f1f5f9; padding-bottom: 8px; margin-bottom: 16px;">
-                <h3>Step 3: Pick Your Appointment Time</h3>
+            <div class="field-group">
+                <label for="map-radius">Radius: <span id="radius-value">3</span> miles</label>
+                <input type="range" id="map-radius" min="1" max="20" value="3">
             </div>
-            
-            <!-- TidyCal Embedded Calendar -->
-            <div style="width: 100%; height: 600px; margin: 16px 0; border: 1px solid #e2e8f0; border-radius: 12px; overflow: hidden; background-color: #ffffff;">
-                <iframe 
-                    src="https://tidycal.com" 
-                    width="100%" 
-                    height="100%" 
-                    frameborder="0" 
-                    style="border: 0; width: 100%; height: 100%;">
-                </iframe>
+
+            <div class="field-group">
+                <label for="map-type">Property Type</label>
+                <select id="map-type" class="no-icon">
+                    <option value="">Any type</option>
+                    <option>Apartment</option>
+                    <option>House</option>
+                    <option>Bed Space</option>
+                    <option>Commercial</option>
+                </select>
+            </div>
+
+            <div class="field-row">
+                <div class="field-group">
+                    <label for="budget-min">Min Budget</label>
+                    <input type="number" id="budget-min" class="no-icon" placeholder="₱0">
+                </div>
+                <div class="field-group">
+                    <label for="budget-max">Max Budget</label>
+                    <input type="number" id="budget-max" class="no-icon" placeholder="₱50,000">
+                </div>
+            </div>
+
+            <button type="button" class="primary-btn" id="map-search-btn" style="width:100%;">
+                Search This Area
+            </button>
+        </div>
+
+        <!-- MAP CANVAS -->
+        <div class="map-canvas-wrap">
+            <!-- Leaflet/Google Maps mounts INTO this div by ID -->
+            <div id="map-canvas" class="map-placeholder">
+                Map will render here
+            </div>
+        </div>
+
+    </div>
+</section>
+
+    <!-- ============================ -->
+    <!--     FEATURED PROPERTIES      -->
+    <!-- =============================-->
+    
+        <section class="properties" id="properties">
+            <h2>Featured Properties</h2>
+
+            <!-- TODO: replace hardcoded cards with cards generated
+                 from Firestore once properties.js is built out -->
+                 
+            <div class="property-container">
+
+                <div class="property-card">
+                    <img src="https://via.placeholder.com/400x250" alt="Modern Apartment">
+                    <div class="card-content">
+                        <h3>Modern Apartment</h3>
+                        <p>Quezon City</p>
+                        <strong>₱15,000/month</strong>
+                        <button>View Details</button>
+                    </div>
+                </div>
+
+                <div class="property-card">
+                    <img src="https://via.placeholder.com/400x250" alt="Family House">
+                    <div class="card-content">
+                        <h3>Family House</h3>
+                        <p>Manila</p>
+                        <strong>₱25,000/month</strong>
+                        <button>View Details</button>
+                    </div>
+                </div>
+
             </div>
         </section>
 
     </main>
 
-    <script>
-        function selectService(serviceName) {
-            const intakeSection = document.getElementById('intake-section');
-            const bookingSection = document.getElementById('booking-section');
-            const serviceDisplay = document.getElementById('selected-service-display');
-            const uploadContainer = document.getElementById('upload-container');
-            const fileInput = document.getElementById('file-input');
-            const hiddenServiceInput = document.getElementById('hidden-service-input');
-            
-            serviceDisplay.innerText = "Selected Category: " + serviceName;
-            hiddenServiceInput.value = serviceName;
-            
-            bookingSection.classList.remove('visible-element');
-            bookingSection.classList.add('hidden-element');
-            
-            if (serviceName.includes('Certificate') || serviceName.includes('Document')) {
-                uploadContainer.style.display = 'block';
-                fileInput.required = true;
-            } else {
-                uploadContainer.style.display = 'none';
-                fileInput.required = false;
-                fileInput.value = ""; 
-            }
-            
-            intakeSection.classList.remove('hidden-element');
-            intakeSection.classList.add('visible-element');
-            intakeSection.scrollIntoView({ 
-                behavior: 'smooth', 
-                block: 'nearest' 
-            });
-        }
-    </script>
+    <!-- ============================ -->
+    <!--       FOOTER SECTION         -->
+    <!-- =============================-->
+    
+<footer class="main-footer">
+    <div class="footer-container">
+        <!-- Brand Segment -->
+        <div class="footer-brand">
+            <h3 class="footer-logo">🏠 HomeFinder</h3>
+            <p>Simplifying property searching and management across the Philippines.</p>
+        </div>
+
+        <!-- Navigation Matrix Loops -->
+        <div class="footer-links-group">
+            <h4>Account Panels</h4>
+            <ul>
+                <li><a href="profile.html#profile">Edit Profile</a></li>
+                <li><a href="profile.html#property">Saved Properties</a></li>
+                <li><a href="profile.html#perks">Member Perks</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-links-group">
+            <h4>Marketplace</h4>
+            <ul>
+                <li><a href="index.html">Search Listings</a></li>
+                <li><a href="post-property.html">Post a Property</a></li>
+                <li><a href="admin.html">Portal Registry</a></li>
+            </ul>
+        </div>
+
+        <!-- Interactive Engagement / Social Links Column -->
+        <div class="footer-socials">
+            <h4>Connect with Us</h4>
+            <div class="social-icons">
+                <a href="#" aria-label="Facebook"><i class='bx bxl-facebook-circle'></i></a>
+                <a href="#" aria-label="LinkedIn"><i class='bx bxl-linkedin-square'></i></a>
+                <a href="#" aria-label="Twitter"><i class='bx bxl-twitter'></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Base Legal Copyright Floor Row -->
+    <div class="footer-bottom">
+        <p>&copy; 2026 HomeFinder. All rights reserved.</p>
+        <div class="legal-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+        </div>
+    </div>
+</footer>
+
+    <!-- ============================ -->
+    <!--       SEARCH-OVERLAY         -->
+    <!-- =============================-->
+   
+<div class="search-overlay" id="search-overlay">
+    <div class="search-overlay-backdrop" id="search-backdrop"></div>
+    <div class="search-modal">
+
+        <div class="search-modal-input">
+            <i class='bx bx-search'></i>
+            <input type="text" id="universal-search-input"
+                   placeholder="Search properties, users, pages, or a location...">
+            <button class="search-close" id="search-close-btn">
+                <i class='bx bx-x'></i>
+            </button>
+        </div>
+
+        <div class="search-tabs">
+            <button class="search-tab active" data-cat="pages">Pages</button>
+            <button class="search-tab" data-cat="properties">Properties</button>
+            <button class="search-tab" data-cat="users">Users</button>
+            <button class="search-tab" data-cat="map">Map</button>
+        </div>
+
+        <div class="search-results" id="search-results"></div>
+
+    </div>
+</div>
+    
+    <script type="module" src="js/app.js"></script>
+     <script type="module" src="js/typing.js"></script>
+    <script type="module" src="js/search.js"></script>
+    <script type="module" src="js/navbar.js"></script>
+    <script src="js/transition.js"></script>
+    <script src="js/mapUI.js"></script>
 </body>
 </html>

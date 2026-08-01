@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - HomeFinder</title>
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="css/search.css">
+
+    <link href='https://unpkg.com' rel='stylesheet'>
+</head>
+<body class="profile-page">
+
+    <div class="toast-container" id="toast-container"></div>
+
+    <header class="profile-header">
+        <!-- 🚨 ACCOUNT SIGNATURE INTEGRITY BLOCK -->
+        <div class="account-completion-alert-banner" id="completion-alert-zone" style="display:none;">
+            <div class="alert-content">
+                <i class='bx bx-error-circle animate-pulse'></i>
+                <div>
+                    <h4>Finish Account Setup</h4>
+                    <p>Provide your phone number, verifiable street address, and complete validation steps to activate high-tier visibility options.</p>
+                </div>
+            </div>
+            <button class="primary-btn sm-btn" onclick="activateDashboardTab('edit-fields')">Complete Setup</button>
+        </div>
+
+        <div class="profile-summary">
+            <div class="profile-avatar" id="profile-avatar">
+                <span id="avatar-initials">?</span>
+                <button class="avatar-edit" aria-label="Change photo">
+                    <i class='bx bx-camera'></i>
+                </button>
+            </div>
+            <div>
+                <h2 id="profile-name">Loading...</h2>
+                <p id="profile-email"></p>
+                <span class="badge" id="profile-account-type"></span>
+            </div>
+
+            <div class="header-actions">
+                <a href="mailto:support@homefinder.com" class="icon-btn" aria-label="Contact support">
+                    <i class='bx bx-headphone'></i>
+                </a>
+
+                <div class="settings-wrap">
+                    <button class="icon-btn" id="settings-btn" aria-label="Settings">
+                        <i class='bx bx-cog'></i>
+                    </button>
+
+                    <div class="settings-dropdown" id="settings-dropdown">
+                        <button data-action="edit-profile">
+                            <i class='bx bx-user-circle'></i> Edit Profile
+                        </button>
+                        <button data-action="search-user">
+                            <i class='bx bx-search'></i> Search Users
+                        </button>
+                        <button data-action="search-property">
+                            <i class='bx bx-buildings'></i> Search Properties
+                        </button>
+                        <button data-action="saved">
+                            <i class='bx bx-bookmark-heart'></i> My Saved Properties
+                        </button>
+                        <div class="settings-divider"></div>
+                        <button data-action="theme" id="theme-toggle-btn">
+                            <i class='bx bx-moon'></i> <span id="theme-toggle-label">Dark Mode</span>
+                        </button>
+                    </div>
+                </div>
+
+                <button class="logout-btn" id="logout-btn">
+                    <i class='bx bx-log-out'></i> Log Out
+                </button>
+            </div>
+        </div>
+
+        <nav class="profile-tabs">
+            <button class="profile-tab active" data-tab="profile">
+                <i class='bx bx-award'></i> Perks & Portfolio
+            </button>
+            <button class="profile-tab" data-tab="edit-fields">
+                <i class='bx bx-user-voice'></i> Account Details
+            </button>
+            <button class="profile-tab" data-tab="property">
+                <i class='bx bx-map'></i> Property
+            </button>
+            <button class="profile-tab" data-tab="messages">
+                <i class='bx bx-chat'></i> Messages
+            </button>
+            <button class="profile-tab" data-tab="listing">
+                <i class='bx bx-plus-circle'></i> List Property
+            </button>
+        </nav>
+    </header>
+
+    <main class="profile-content">
+
+        <!-- ===== LANDING PANEL: PERKS & GAMIFIED TIERS ===== -->
+<section class="profile-panel active" id="panel-profile">
+    <div class="panel-card perks-layout-card">
+        <div class="perks-header-banner">
+            <div class="banner-text">
+                <h3>Rewards & Gamified Tiers</h3>
+                <p>Level up your real estate portfolio footprint to unlock premium app badges and marketplace visibility perks.</p>
+            </div>
+            <div class="current-rank-showcase">
+                <div class="rank-badge-shield"><i class='bx bxs-award'></i></div>
+                <div class="rank-badge-details">
+                    <span class="rank-label">Your Current Rank</span>
+                    <strong class="rank-title" id="user-rank-title">Casual Host</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="rank-progress-container">
+            <div class="progress-meta-labels">
+                <span id="current-tier-progress-text">0 Active Listings Published</span>
+                <span id="next-tier-target-label">Next Rank: Pro Landlord (0/3)</span>
+            </div>
+            <div class="progress-bar-track">
+                <div class="progress-bar-fill" id="perk-progress-fill" style="width: 0%;"></div>
+            </div>
+        </div>
+
+        <div class="tiers-showcase-grid">
+            <div class="tier-milestone-card active" id="tier-card-1" data-tier="1">
+                <div class="tier-icon-circle"><i class='bx bx-home-heart'></i></div>
+                <div class="tier-body">
+                    <h4>Casual Host</h4>
+                    <p class="tier-requirement">✓ Rank Requirement Unlocked</p>
+                    <ul class="tier-perks-list">
+                       <li><i class='bx bx-check-circle'></i> Post up to 2 properties</li>
+                       <li><i class='bx bx-check-circle'></i> Standard Manila traffic indicators</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tier-milestone-card" id="tier-card-2" data-tier="2">
+                <div class="tier-icon-circle"><i class='bx bx-building'></i></div>
+                <div class="tier-body">
+                    <h4>Pro Landlord</h4>
+                    <p class="tier-requirement">Requires 3 Published Listings</p>
+                    <ul class="tier-perks-list">
+                       <li><i class='bx bx-circle'></i> Post up to 5 properties</li>
+                       <li><i class='bx bx-circle'></i> ISP availability filters</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tier-milestone-card" id="tier-card-3" data-tier="3">
+                <div class="tier-icon-circle"><i class='bx bx-shield-quarter'></i></div>
+                <div class="tier-body">
+                    <h4>Premier Broker</h4>
+                    <p class="tier-requirement">Requires 8 Published Listings</p>
+                    <ul class="tier-perks-list">
+                       <li><i class='bx bx-circle'></i> Post up to 15 properties</li>
+                       <li><i class='bx bx-circle'></i> "Verified Local Manager" badge profile anchor</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tier-milestone-card" id="tier-card-4" data-tier="4">
+                <div class="tier-icon-circle"><i class='bx bx-objects-horizontal-left'></i></div>
+                <div class="tier-body">
+                    <h4>Estate Mogul</h4>
+                    <p class="tier-requirement">Requires 15 Published Listings</p>
+                    <ul class="tier-perks-list">
+                       <li><i class='bx bx-circle'></i> Post up to 50 properties</li>
+                       <li><i class='bx bx-circle'></i> Advanced WebRTC preview panels access</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tier-milestone-card" id="tier-card-5" data-tier="5">
+                <div class="tier-icon-circle"><i class='bx bxs-crown'></i></div>
+                <div class="tier-body">
+                    <h4>Real Estate Tycoon</h4>
+                    <p class="tier-requirement">Requires 30+ Published Listings</p>
+                    <ul class="tier-perks-list">
+                       <li><i class='bx bx-circle'></i> Unlimited property listing uploads</li>
+                       <li><i class='bx bx-circle'></i> Homepage banner carousel feature access</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== ACCOUNT DETAILS PANEL ===== -->
+<section class="profile-panel" id="panel-edit-fields">
+    <div class="panel-card">
+        <h3>Account Details</h3>
+        
+        <div class="field-row" style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <div class="field-group">
+                <label for="p-first-name">First Name</label>
+                <input type="text" id="p-first-name" class="no-icon">
+            </div>
+            <div class="field-group">
+                <label for="p-surname">Surname</label>
+                <input type="text" id="p-surname" class="no-icon">
+            </div>
+        </div>
+
+        <div class="field-group">
+            <label for="p-phone">Phone Number</label>
+            <input type="tel" id="p-phone" class="no-icon" placeholder="e.g. +63 917 123 4567">
+        </div>
+
+        <div class="field-group">
+            <label for="p-address">Address</label>
+            <input type="text" id="p-address" class="no-icon" placeholder="Street number, Village, City">
+        </div>
+
+        <button class="primary-btn" id="save-profile-btn" style="margin-top:8px;">Save Changes</button>
+    </div>
+</section>
+
+<!-- ==========================================================================
+     🗂️ OWNER ACTIVE PROPERTY MANAGEMENT TAB PANEL (SPLIT VIEW VIEWPORT)
+     ========================================================================== -->
+<section class="profile-panel" id="panel-properties-view">
+    <div class="panel-card" style="max-width: 100%;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <h3><i class="bx bx-list-ul"></i> Your Active Listings</h3>
+            <button class="primary-btn" onclick="document.getElementById('panel-listing').click();" style="padding: 8px 16px; font-size: 13px;">
+                <i class="bx bx-plus"></i> Add New
+            </button>
+        </div>
+        <p class="field-hint">Monitor performance metrics, active utilities, traffic configurations, and location pinning zones.</p>
+
+        <!-- SPLIT PANEL ENGINE MATRIX WRAPPER -->
+        <div class="marketplace-split-view">
+            
+            <!-- LEFT PANEL: SCROLLABLE LISTED PROPERTY TRACK -->
+            <div class="listed-properties-scroll">
+                
+                <!-- 🏠 EXAMPLE CARD 1: Condominium near University Zone -->
+                <div class="property-feed-card">
+                    <div class="property-card-thumbnail">
+                        <span class="property-type-tag">Condo Studio</span>
+                        <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: var(--text-muted); font-size: 32px;">
+                            <i class="bx bx-image"></i>
+                        </div>
+                    </div>
+                    <div class="property-card-body">
+                        <div class="property-card-title-row">
+                            <h4>Vista Taft Residences Unit 14B</h4>
+                            <div class="property-card-address"><i class="bx bx-map"></i> Taft Ave, Malate, Manila</div>
+                        </div>
+                        
+                        <div class="property-metric-badges">
+                            <span class="metric-pill"><i class="bx bx-area"></i> 22.5 sqm</span>
+                            <span class="metric-pill"><i class="bx bx-bed"></i> Solo Cap</span>
+                            <span class="metric-pill flood-safe-pill"><i class="bx bx-shield-quarter"></i> Flood Safe</span>
+                            <span class="metric-pill"><i class="bx bx-wifi"></i> PLDT Fiber</span>
+                        </div>
+                        
+                        <div class="property-card-footer">
+                            <div class="property-price-display">₱18,500 <span>/mo</span></div>
+                            <button class="icon-btn" style="border-radius: 8px; width: 36px; height: 36px; border-color: var(--border-color); color: var(--text-secondary);"><i class="bx bx-edit-alt" style="font-size: 16px;"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 🏠 EXAMPLE CARD 2: Co-Living Dorm Space near University Belt -->
+                <div class="property-feed-card">
+                    <div class="property-card-thumbnail">
+                        <span class="property-type-tag">Shared Dorm</span>
+                        <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: var(--text-muted); font-size: 32px;">
+                            <i class="bx bx-image"></i>
+                        </div>
+                    </div>
+                    <div class="property-card-body">
+                        <div class="property-card-title-row">
+                            <h4>U-Belt Co-Living Hub Space D</h4>
+                            <div class="property-card-address"><i class="bx bx-map"></i> Sampaloc, Manila</div>
+                        </div>
+                        
+                        <div class="property-metric-badges">
+                            <span class="metric-pill"><i class="bx bx-area"></i> 40.0 sqm</span>
+                            <span class="metric-pill"><i class="bx bx-group"></i> 4 Beds</span>
+                            <span class="metric-pill" style="background: rgba(245,158,11,0.1); color: #F59E0B;"><i class="bx bx-time-five"></i> 10PM Curfew</span>
+                        </div>
+                        
+                        <div class="property-card-footer">
+                            <div class="property-price-display">₱5,200 <span>/bed</span></div>
+                            <button class="icon-btn" style="border-radius: 8px; width: 36px; height: 36px; border-color: var(--border-color); color: var(--text-secondary);"><i class="bx bx-edit-alt" style="font-size: 16px;"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- RIGHT PANEL: INTERACTIVE CANVAS MAP LAYOUT LAYER -->
+            <div class="property-map-canvas-container">
+                <!-- Map Layer Element Component Renders Right Inside This Node Frame -->
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+        <!-- ===== MESSAGES TAB ===== -->
+<section class="profile-panel" id="panel-messages">
+    <div class="chat-layout">
+        <div class="chat-list" id="chat-list">
+            <div class="panel-empty" style="padding:30px 16px;">
+                <i class='bx bx-chat' style="font-size:32px;"></i>
+                <p style="font-size:13px;">No conversations yet.</p>
+            </div>
+        </div>
+        <div class="chat-window">
+            <div class="panel-empty">
+                <i class='bx bx-message-square-dots'></i>
+                <p>Select a conversation to start chatting.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+        <!-- ===== EXPANDED LIST PROPERTY TAB ===== -->
+<!-- ==========================================================================
+     🏠 HOMEFINDER DASHBOARD PROPERTY CREATION SECTION (COMPLETE PANEL)
+     ========================================================================== -->
+<section class="profile-panel" id="panel-listing">
+    <div class="panel-card">
+        <h3><i class="bx bx-building-house"></i> List a New Property</h3>
+        <p class="field-hint" style="margin-bottom: 24px;">Provide accurate details regarding your unit to attract verified students and urban professionals.</p>
+
+        <form id="create-property-form" action="#" method="POST">
+            
+            <!-- 📐 STEP 1: CORE PROPERTY METRICS & CAPACITY -->
+            <div class="listing-grid-2col">
+                
+                <!-- 🏢 Property Sector & Classification Type -->
+                <div class="field-group">
+                    <label for="property_classification">Property Type</label>
+                    <div class="flood-select-wrapper">
+                        <select id="property_classification" name="property_classification" required>
+                            <option value="" disabled selected>Select classification</option>
+                            
+                            <!-- Residential Offerings -->
+                            <optgroup label="Residential Spaces">
+                                <option value="condo_studio">Condominium (Studio / Unit)</option>
+                                <option value="bedspace_dorm">Bedspace / Shared Dormitory</option>
+                                <option value="townhouse">Townhouse / Rowhouse</option>
+                                <option value="house_lot">Single-Family House & Lot</option>
+                            </optgroup>
+                
+                            <!-- Commercial / Corporate Offerings -->
+                            <optgroup label="Commercial & Corporate">
+                                <option value="office_fitted">Corporate Office Space</option>
+                                <option value="coworking_desk">Co-Working / Flexible Desk</option>
+                                <option value="retail_store">Retail Storefront / Shop</option>
+                            </optgroup>
+                
+                            <!-- Industrial & Land Offerings -->
+                            <optgroup label="Industrial & Logistics">
+                                <option value="warehouse">Warehouse / Logistics Center</option>
+                                <option value="industrial_lot">Industrial Lot / Eco-Zone</option>
+                                <option value="raw_land">Raw Land / Masterplanned Lot</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="field-hint">Select the target asset framework category.</div>
+                </div>
+
+                <!-- Manual Floor Area Input Group -->
+                <div class="field-group">
+                    <label for="property_size">Floor Area (sqm)</label>
+                    <div class="input-suffix-wrapper">
+                        <input 
+                            type="number" 
+                            id="property_size" 
+                            name="property_size" 
+                            min="5" 
+                            max="500" 
+                            step="0.1" 
+                            placeholder="e.g., 22.5" 
+                            required
+                        >
+                        <span class="input-suffix-label">sqm</span>
+                    </div>
+                    <div class="field-hint">Type exact usable interior space.</div>
+                </div>
+
+                <!-- Total Bed Capacity Count -->
+                <div class="field-group">
+                    <label for="number_of_beds">Bed Capacity Count</label>
+                    <select id="number_of_beds" name="number_of_beds" required>
+                        <option value="" disabled selected>Select capacity</option>
+                        <option value="1">1 Bed (Solo / Private Room)</option>
+                        <option value="2">2 Beds (Dual Sharing Room)</option>
+                        <option value="4">4 Beds (Quad Bedspace Layout)</option>
+                        <option value="6_plus">6+ Beds (Dormitory Ward Layout)</option>
+                    </select>
+                    <div class="field-hint">Max number of tenants allowed.</div>
+                </div>
+
+                <!-- Bathroom Inventory Count -->
+                <div class="field-group">
+                    <label for="number_of_bathrooms">Bathrooms Available</label>
+                    <select id="number_of_bathrooms" name="number_of_bathrooms" required>
+                        <option value="" disabled selected>Select count</option>
+                        <option value="1_private">1 Private (En-Suite)</option>
+                        <option value="1_shared">1 Shared Common Bathroom</option>
+                        <option value="2_plus">2 or More Bathrooms</option>
+                    </select>
+                    <div class="field-hint">Prevents rush-hour morning lines.</div>
+                </div>
+            </div>
+
+            <hr class="form-section-divider">
+
+            <!-- 🔌 STEP 2: UTILITY INCLUSIONS TOGGLE -->
+            <div class="field-group">
+                <label>Utility Inclusions</label>
+                <div class="field-hint">Select the monthly expenses covered by the base rent price.</div>
+                <div class="utility-toggle-group">
+                    <label class="utility-toggle-card">
+                        <input type="checkbox" name="utilities[]" value="wifi">
+                        <span class="utility-toggle-label">
+                            <i class="bx bx-wifi"></i> Free Wi-Fi
+                        </span>
+                    </label>
+                    <label class="utility-toggle-card">
+                        <input type="checkbox" name="utilities[]" value="water">
+                        <span class="utility-toggle-label">
+                            <i class="bx bx-water"></i> Water Bill
+                        </span>
+                    </label>
+                    <label class="utility-toggle-card">
+                        <input type="checkbox" name="utilities[]" value="electricity">
+                        <span class="utility-toggle-label">
+                            <i class="bx bx-flash"></i> Electricity
+                        </span>
+                    </label>
+                    <label class="utility-toggle-card">
+                        <input type="checkbox" name="utilities[]" value="condo_dues">
+                        <span class="utility-toggle-label">
+                            <i class="bx bx-building"></i> Condo Dues
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+            <hr class="form-section-divider">
+
+            <!-- 📋 STEP 3: AMENITY CHECKLIST SYSTEM MATRIX -->
+            <div class="field-group">
+                <label>Property Amenities</label>
+                <div class="field-hint">Check all available unit perks and building facilities.</div>
+                
+                <div class="amenity-checklist-container">
+                    <!-- 🎒 In-Unit Perks & Layout -->
+                    <label class="amenity-checkbox-item">
+                        <input type="checkbox" name="amenities[]" value="aircon"> Air Conditioning
+                    </label>
+                    <label class="amenity-checkbox-item">
+                        <input type="checkbox" name="amenities[]" value="loft_bed"> Loft / Bunk Space
+                    </label>
+                    <label class="amenity-checkbox-item">
+                        <input type="checkbox" name="amenities[]" value="study_desk"> Study Desk & Lamp
+                    </label>
+                    <label class="amenity-checkbox-item">
+                        <input type="checkbox" name="amenities[]" value="private_bathroom"> En-Suite Bathroom
+                    </label>
+                    <label class="amenity-checkbox-item">
+                        <input type="checkbox" name="amenities[]" value="water_heater"> Water Heater
+                    </label>
+                    <label class="amenity-checkbox-item">
+                        <input type="checkbox" name="amenities[]" value="kitchenette"> Kitchenette
+                    </label>
+                    <label class="amenity-checkbox-item">
+                        <input type="checkbox" name="amenities[]" value="balcony"> Balcony / View
+                    </label>
+
+                    <!-- 🔒 Safety, Operations & Utilities -->
+                    <label class="amenity-checkbox-item">
+                        <input type="checkbox" name="amenities[]" value="guard_cctv"> 24/7 Guard & CCTV
+                    </label>
+                    <label class="amenity-checkbox-item">
+                        <input type="checkbox" name="amenities[]" value="biometric"> Keycard Access
+                    </label>
+                    <label class="amenity-checkbox-item">
+                        <input type="checkbox" name="amenities[]" value="generator"> Backup Generator
+                    </label>
+                    <label class="amenity-checkbox-item">
+                        <input type="checkbox" name="amenities[]" value="laundry"> Coin Laundry Room
+                    </label>
+                    <label class="amenity-checkbox-item">
+                        <input type="checkbox" name="amenities[]" value="submeter"> Sub-Metered Billing
+                    </label>
+                    <label class="amenity-checkbox-item">
+                        <input type="checkbox" name="amenities[]" value="elevator"> Elevator Access
+                    </label>
+
+                    <!-- 🏊 Building Community & Lifestyle -->
+                    <label class="amenity-checkbox-item">
+                        <input type="checkbox" name="amenities[]" value="coworking"> Co-Working Hall
+                    </label>
+                    <label class="amenity-checkbox-item">
+                        <input type="checkbox" name="amenities[]" value="roofdeck"> Roof Sky Lounge
+                    </label>
+                    <label class="amenity-checkbox-item">
+                        <input type="checkbox" name="amenities[]" value="gym"> Fitness Gym
+                    </label>
+                    <label class="amenity-checkbox-item">
+                        <input type="checkbox" name="amenities[]" value="pool"> Swimming Pool
+                    </label>
+                    <label class="amenity-checkbox-item">
+                        <input type="checkbox" name="amenities[]" value="courier_lockers"> Delivery Lockers
+                    </label>
+                    <label class="amenity-checkbox-item">
+                        <input type="checkbox" name="amenities[]" value="pet_friendly"> Pet-Friendly Zone
+                    </label>
+
+                    <!-- 🚗 Transit & Parking Alternatives -->
+                    <label class="amenity-checkbox-item">
+                        <input type="checkbox" name="amenities[]" value="car_parking"> Car Parking Slot
+                    </label>
+                    <label class="amenity-checkbox-item">
+                        <input type="checkbox" name="amenities[]" value="scooter_rack"> Scooter/Bike Racks
+                    </label>
+                </div>
+            </div>
+
+            <hr class="form-section-divider">
+            
+                        <!-- ⏳ STEP 4: CURFEW & VISITOR FILTERS (SEGMENTED CONTROLS) -->
+            <div class="listing-grid-2col">
+                <div class="rule-filter-card">
+                    <span class="rule-filter-title"><i class="bx bx-time-five"></i> Curfew Restrictions</span>
+                    <div class="segmented-control">
+                        <label class="segmented-option">
+                            <input type="radio" name="curfew_policy" value="none" checked>
+                            <span class="segmented-label">No Curfew</span>
+                        </label>
+                        <label class="segmented-option">
+                            <input type="radio" name="curfew_policy" value="10pm">
+                            <span class="segmented-label">10:00 PM</span>
+                        </label>
+                        <label class="segmented-option">
+                            <input type="radio" name="curfew_policy" value="12am">
+                            <span class="segmented-label">12:00 AM</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="rule-filter-card">
+                    <span class="rule-filter-title"><i class="bx bx-user-check"></i> Visitor Guidelines</span>
+                    <div class="segmented-control">
+                        <label class="segmented-option">
+                            <input type="radio" name="visitor_policy" value="allowed" checked>
+                            <span class="segmented-label">Allowed Any</span>
+                        </label>
+                        <label class="segmented-option">
+                            <input type="radio" name="visitor_policy" value="daytime">
+                            <span class="segmented-label">Daytime Only</span>
+                        </label>
+                        <label class="segmented-option">
+                            <input type="radio" name="visitor_policy" value="no_overnight">
+                            <span class="segmented-label">No Overnights</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 🌊 STEP 5: METRO MANILA PARAMETRICS (FLOOD RISK & INTERNET PROVIDERS) -->
+            <div class="listing-grid-2col">
+                <!-- Flood History Hazard Level Selector -->
+                <div class="field-group">
+                    <label for="flood_history">Flood History Hazard Level</label>
+                    <div class="flood-select-wrapper">
+                        <select id="flood_history" name="flood_history" onchange="updateFloodIndicator(this.value)" required>
+                            <option value="" disabled selected>Select historical status</option>
+                            <option value="safe">Safe (No flooding history during major typhoons)</option>
+                            <option value="low">Low Risk (Street level only / gutter deep; clears fast)</option>
+                            <option value="prone">Prone Zone (History of high water accumulation)</option>
+                        </select>
+                        <span id="flood-indicator" class="flood-indicator-dot"></span>
+                    </div>
+                    <div class="field-hint">Based on local barangay records and historical monsoon logs.</div>
+                </div>
+
+                <!-- Fiber Internet Provider Multi-Select Badges -->
+                <div class="field-group">
+                    <label>Available Fiber Internet ISPs</label>
+                    <div class="field-hint">Select the active telecom connections service lines inside the building.</div>
+                    <div class="isp-badge-grid">
+                        <label class="isp-checkbox-tag">
+                            <input type="checkbox" name="isp_providers[]" value="pldt">
+                            <span class="isp-tag-label">PLDT Home Fiber</span>
+                        </label>
+                        <label class="isp-checkbox-tag">
+                            <input type="checkbox" name="isp_providers[]" value="globe">
+                            <span class="isp-tag-label">Globe At Home</span>
+                        </label>
+                        <label class="isp-checkbox-tag">
+                            <input type="checkbox" name="isp_providers[]" value="converge">
+                            <span class="isp-tag-label">Converge ICT</span>
+                        </label>
+                        <label class="isp-checkbox-tag">
+                            <input type="checkbox" name="isp_providers[]" value="dito">
+                            <span class="isp-tag-label">DITO Telecommunity</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="form-section-divider">
+
+            <!-- 🚗 STEP 6: LOCATION PROXIMITY & COMMUTE HOUR METRICS -->
+            <div class="listing-grid-2col">
+                <div class="field-group">
+                    <label for="proximity_schools">Proximity to Universities / Top Schools</label>
+                    <select id="proximity_schools" name="proximity_schools" required>
+                        <option value="" disabled selected>Select travel radius</option>
+                        <option value="under_5mins">Within walking distance (Under 5 mins)</option>
+                        <option value="5_15mins">Short trike / jeep ride (5 - 15 mins)</option>
+                        <option value="15_30mins">Moderate commute time (15 - 30 mins)</option>
+                        <option value="over_30mins">Distance / Remote campus (Over 30 mins)</option>
+                    </select>
+                </div>
+
+                <div class="field-group">
+                    <label for="commute_traffic_indicators">Actual Rush Hour Commute Time</label>
+                    <select id="commute_traffic_indicators" name="commute_traffic_indicators" required>
+                        <option value="" disabled selected>Select traffic density</option>
+                        <option value="predictable">Predictable flow (Minimal gridlocks)</option>
+                        <option value="moderate_rush">Moderate delays (+15 mins during peak rush hours)</option>
+                        <option value="heavy_bottleneck">Heavy bottleneck corridor (+30 mins gridlock danger)</option>
+                    </select>
+                    <div class="commute-metric-box">
+                        <i class="bx bx-error-alt"></i>
+                        <div class="commute-metric-details">
+                            <p>Calculated dynamically against **Manila peak rush times** (7:00 AM–9:00 AM / 5:00 PM–8:00 PM).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FORM ACTIONS (Save and Submit Listing Layout) -->
+            <div style="margin-top: 32px; display: flex; justify-content: flex-end; gap: 12px;">
+                <button type="button" class="icon-btn" style="border-radius: 10px; width: auto; padding: 0 16px; color: var(--text-secondary); background: transparent; border-color: var(--border-color); font-size: 14px; font-weight: 600;">Cancel</button>
+                <button type="submit" class="primary-btn"><i class="bx bx-plus-circle"></i> Create Listing</button>
+            </div>
+
+        </form>
+    </div>
+</section>
+
+<!-- ===== PERKS TAB (reached via Settings dropdown, not the main tab bar) ===== -->
+<section class="profile-panel" id="panel-perks">
+
+    <div class="panel-card tier-status-card">
+        <div class="tier-status-header">
+            <div class="tier-icon-badge">
+                <i class="bx bx-home-smile" id="perks-tier-icon"></i>
+            </div>
+            <div>
+                <h3 id="perks-tier-name">Casual Host</h3>
+                <p class="field-hint" id="perks-listing-count">0 listings</p>
+            </div>
+        </div>
+
+        <div class="xp-track">
+            <div class="xp-track-fill" id="xp-track-fill" style="width:0%;"></div>
+        </div>
+        <p class="field-hint" id="xp-track-label">Loading progress...</p>
+    </div>
+
+    <div class="panel-card perks-badge-preview-panel">
+        <h3><i class='bx bx-gift'></i> Your Current Perks</h3>
+        <ul class="perks-list" id="perks-current-list"></ul>
+    </div>
+
+    <div class="panel-card locked-feature-block">
+        <div class="locked-feature-icon">
+            <i class='bx bx-lock-alt'></i>
+        </div>
+        <div>
+            <strong>WebRTC Live Video Tour Overlay</strong>
+            <p class="field-hint">Unlocks at Premier Broker tier -- let seekers video-tour your listing live.</p>
+        </div>
+    </div>
+</section>
+</main>
+
+    <script type="module" src="js/profile.js"></script>
+    <script src="js/search.js"></script>
+</body>
+</html>

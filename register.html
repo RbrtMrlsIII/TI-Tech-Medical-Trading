@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - HomeFinder</title>
+
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/auth.css">
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body class="auth-page">
+
+    <div class="toast-container" id="toast-container"></div>
+
+    <div class="auth-bg">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <div class="auth-overlay"></div>
+
+    <div class="auth-icons">
+        <i class='bx bx-home-heart'></i>
+        <i class='bx bx-key'></i>
+        <i class='bx bx-map'></i>
+        <i class='bx bx-buildings'></i>
+        <i class='bx bx-search'></i>
+        <i class='bx bx-shield-quarter'></i>
+    </div>
+
+    <a href="index.html" class="auth-back">
+        <i class='bx bx-arrow-back'></i> Back to Home
+    </a>
+
+    <a href="mailto:support@homefinder.com" class="support-btn">
+        <i class='bx bx-headphone'></i> <span>Contact Support</span>
+    </a>
+
+    <div class="auth-wrapper">
+        <div class="auth-card register-card">
+
+            <h1>Create Your Account</h1>
+            <p class="auth-sub">Join HomeFinder to list properties or find your next place.</p>
+
+            <p class="auth-status" id="register-status"></p>
+
+            <form id="register-form">
+
+                <!-- ===== NAME ===== -->
+                <div class="field-row">
+                    <div class="field-group">
+                        <label for="first-name">First Name</label>
+                        <div class="input-wrap">
+                            <i class='bx bx-user'></i>
+                            <input type="text" id="first-name" placeholder="Juan" required>
+                        </div>
+                    </div>
+                    <div class="field-group">
+                        <label for="surname">Surname</label>
+                        <div class="input-wrap">
+                            <i class='bx bx-user'></i>
+                            <input type="text" id="surname" placeholder="Dela Cruz" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field-row">
+                    <div class="field-group">
+                        <label for="middle-initial">Middle Initial</label>
+                        <input type="text" id="middle-initial" class="no-icon" placeholder="R" maxlength="2">
+                    </div>
+                    <div class="field-group">
+                        <label for="suffix">Suffix</label>
+                        <select id="suffix" class="no-icon">
+                            <option value="">None</option>
+                            <option>Jr.</option>
+                            <option>Sr.</option>
+                            <option>II</option>
+                            <option>III</option>
+                            <option>IV</option>
+                        </select>
+                    </div>
+                    <div class="field-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender" class="no-icon" required>
+                            <option value="" disabled selected>Select</option>
+                            <option>Female</option>
+                            <option>Male</option>
+                            <option>Non-binary</option>
+                            <option>Prefer not to say</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- ===== CONTACT ===== -->
+                <div class="field-group">
+                    <label for="email">Email Address</label>
+                    <div class="input-wrap">
+                        <i class='bx bx-envelope'></i>
+                        <input type="email" id="email" placeholder="you@example.com" required>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <label for="phone">Phone Number</label>
+                    <div class="input-wrap">
+                        <i class='bx bx-phone'></i>
+                        <input type="tel" id="phone" placeholder="+63 900 000 0000" required>
+                    </div>
+                </div>
+
+                <!-- ===== ADDRESS ===== -->
+                <div class="field-row">
+                    <div class="field-group">
+                        <label for="country">Country</label>
+                        <select id="country" class="no-icon" required>
+                            <option value="" disabled selected>Select country</option>
+                            <option>Philippines</option>
+                            <option>United States</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="field-group">
+                        <label for="province">Province / State</label>
+                        <input type="text" id="province" class="no-icon" placeholder="Metro Manila">
+                    </div>
+                </div>
+
+                <div class="field-row">
+                    <div class="field-group">
+                        <label for="city">City / Municipality</label>
+                        <input type="text" id="city" class="no-icon" placeholder="Quezon City" required>
+                    </div>
+                    <div class="field-group">
+                        <label for="street">Street Address</label>
+                        <input type="text" id="street" class="no-icon" placeholder="123 Sample St.">
+                    </div>
+                </div>
+
+                <!-- ===== ACCOUNT TYPE ===== -->
+                <label style="margin-bottom:10px;">I am signing up as a...</label>
+                <div class="account-type">
+                    <input type="radio" name="account-type" id="type-owner" value="owner" checked>
+                    <label for="type-owner">
+                        <i class='bx bx-buildings'></i>
+                        <strong>Property Owner</strong>
+                        <span>List & manage properties</span>
+                    </label>
+
+                    <input type="radio" name="account-type" id="type-seeker" value="seeker">
+                    <label for="type-seeker">
+                        <i class='bx bx-search-alt'></i>
+                        <strong>Property Seeker</strong>
+                        <span>Browse, rent, or buy</span>
+                    </label>
+                </div>
+
+                <!-- ===== PASSWORD ===== -->
+                <div class="field-group">
+                    <label for="reg-password">Password</label>
+                    <div class="input-wrap">
+                        <i class='bx bx-lock-alt'></i>
+                        <input type="password" id="reg-password" placeholder="At least 8 characters" required minlength="8">
+                        <button type="button" class="pass-toggle" data-target="reg-password">
+                            <i class='bx bx-hide'></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <label for="confirm-password">Confirm Password</label>
+                    <div class="input-wrap">
+                        <i class='bx bx-lock-alt'></i>
+                        <input type="password" id="confirm-password" placeholder="Re-enter password" required minlength="8">
+                        <button type="button" class="pass-toggle" data-target="confirm-password">
+                            <i class='bx bx-hide'></i>
+                        </button>
+                    </div>
+                    <p class="field-hint" id="password-match-hint"></p>
+                </div>
+
+                <button type="submit" class="auth-submit" id="register-submit">
+                    <span class="spinner"></span>
+                    <span class="btn-label">Create Account</span>
+                </button>
+
+            </form>
+
+            <div class="auth-divider">or continue with</div>
+
+            <div class="social-login">
+                <button type="button" class="social-btn google" id="google-register">
+                    <i class='bx bxl-google'></i> Google
+                </button>
+                <button type="button" class="social-btn facebook" id="facebook-register">
+                    <i class='bx bxl-facebook-circle'></i> Facebook
+                </button>
+            </div>
+
+            <p class="auth-footer">
+                Already have an account? <a href="login.html">Log in</a>
+            </p>
+
+        </div>
+    </div>
+
+    <script type="module" src="js/auth.js"></script>
+    <script src="js/transition.js"></script>
+</body>
+</html>
